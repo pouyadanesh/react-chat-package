@@ -20,5 +20,4 @@
     "noUnusedLocals": false,
     "strictNullChecks": false
   },
-  "include": ["src"]
 }
