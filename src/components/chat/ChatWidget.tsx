@@ -91,23 +91,35 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
             timestamp: new Date(msg.timestamp)
           }));
           setMessages(parsedMessages);
+          return; // Exit early if we have stored messages
         } catch (error) {
           console.warn('Failed to parse stored messages:', error);
         }
       }
     }
 
-    // Add initial greeting if no messages
-    if (messages.length === 0) {
-      const greetingMsg: Message = {
-        id: 'greeting',
-        content: greetingMessage,
-        sender: 'bot',
-        timestamp: new Date()
-      };
-      setMessages([greetingMsg]);
-    }
-  }, [persistMessages, greetingMessage]);
+    // Add initial greeting if no stored messages
+    const greetingMsg: Message = {
+      id: 'greeting',
+      content: greetingMessage,
+      sender: 'bot',
+      timestamp: new Date()
+    };
+    setMessages([greetingMsg]);
+  }, [persistMessages]);
+
+  // Update greeting message when prop changes
+  useEffect(() => {
+    setMessages(prev => {
+      if (prev.length > 0 && prev[0].id === 'greeting') {
+        return [
+          { ...prev[0], content: greetingMessage },
+          ...prev.slice(1)
+        ];
+      }
+      return prev;
+    });
+  }, [greetingMessage]);
 
   // Persist messages to localStorage
   useEffect(() => {
