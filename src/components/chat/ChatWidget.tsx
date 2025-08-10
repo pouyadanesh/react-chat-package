@@ -20,35 +20,35 @@ export interface Message {
 export interface ChatWidgetProps {
   /** Widget position on screen */
   position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
-  /** Custom brand colors */
+  /** Custom brand color (hex, rgb, or hsl format) */
   brandColor?: string;
   /** Custom greeting message */
   greetingMessage?: string;
   /** Widget title */
   title?: string;
-  /** Online status */
+  /** Online status indicator */
   isOnline?: boolean;
-  /** Maintenance mode */
+  /** Enable maintenance mode */
   isMaintenanceMode?: boolean;
-  /** Maintenance message */
+  /** Message shown during maintenance */
   maintenanceMessage?: string;
-  /** Custom avatar URL */
+  /** Custom avatar URL for bot messages */
   avatarUrl?: string;
-  /** API endpoint for messages */
+  /** API endpoint for sending messages */
   apiEndpoint?: string;
-  /** Custom styles */
+  /** Additional CSS classes */
   className?: string;
-  /** Initial open state */
+  /** Start widget in open state */
   defaultOpen?: boolean;
-  /** Persist messages in localStorage */
+  /** Save messages to localStorage */
   persistMessages?: boolean;
-  /** Maximum messages to store */
+  /** Maximum number of messages to store */
   maxMessages?: number;
-  /** Callback when widget opens/closes */
+  /** Callback fired when widget opens/closes */
   onToggle?: (isOpen: boolean) => void;
-  /** Callback when message is sent */
+  /** Callback fired when user sends a message */
   onMessageSent?: (message: string) => void;
-  /** Custom message handler */
+  /** Custom handler for processing messages */
   onCustomMessageHandler?: (message: string) => Promise<string>;
 }
 
@@ -236,7 +236,9 @@ export const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
 
   const customStyles = brandColor ? {
     '--primary': brandColor,
+    '--primary-foreground': 'hsl(0 0% 98%)',
     '--accent': brandColor,
+    '--gradient-chat': `linear-gradient(135deg, ${brandColor}, ${brandColor}dd)`,
   } as React.CSSProperties : {};
 
   return (
