@@ -248,7 +248,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
     >
       {/* Chat Window */}
       {isOpen && (
-        <div className="mb-4 w-80 sm:w-96 bg-background border border-border rounded-2xl shadow-float animate-chat-slide-up overflow-hidden">
+        <div className="mb-4 w-80 sm:w-96 md:fixed md:inset-0 md:w-full md:h-full md:mb-0 md:rounded-none bg-background border border-border rounded-2xl md:border-none shadow-float animate-chat-slide-up overflow-hidden md:z-[60]">
           {/* Header */}
           <div className="bg-gradient-chat p-4 text-primary-foreground">
             <div className="flex items-center justify-between">
@@ -262,14 +262,16 @@ export const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
                 </div>
               </div>
               <div className="flex items-center gap-2">
+                {/* Desktop minimize button (hidden on mobile) */}
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={toggleWidget}
-                  className="text-primary-foreground hover:bg-white/20 w-8 h-8 p-0"
+                  className="hidden sm:flex text-primary-foreground hover:bg-white/20 w-8 h-8 p-0"
                 >
                   <Minimize2 className="w-4 h-4" />
                 </Button>
+                {/* Close button */}
                 <Button
                   variant="ghost"
                   size="sm"
@@ -288,7 +290,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
           )}
 
           {/* Messages */}
-          <ScrollArea ref={scrollAreaRef} className="h-80 p-4">
+          <ScrollArea ref={scrollAreaRef} className="h-80 md:h-[calc(100vh-200px)] p-4">
             <div className="space-y-4">
               {messages.map((message) => (
                 <ChatMessage
@@ -302,7 +304,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
           </ScrollArea>
 
           {/* Input */}
-          <div className="p-4 border-t border-border">
+          <div className="p-4 border-t border-border md:absolute md:bottom-0 md:left-0 md:right-0 md:bg-background">
             <div className="flex gap-2">
               <Input
                 ref={inputRef}
@@ -325,11 +327,11 @@ export const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
         </div>
       )}
 
-      {/* Toggle Button */}
+      {/* Toggle Button - Hidden on mobile when chat is open */}
       <Button
         onClick={toggleWidget}
         className={`w-14 h-14 rounded-full bg-gradient-chat shadow-chat hover:shadow-float transition-all duration-300 ${
-          isOpen ? 'scale-90' : 'scale-100 animate-pulse-glow'
+          isOpen ? 'scale-90 md:hidden' : 'scale-100 animate-pulse-glow'
         }`}
       >
         {isOpen ? (
