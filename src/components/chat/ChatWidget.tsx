@@ -55,24 +55,25 @@ export interface ChatWidgetProps {
 const DEFAULT_GREETING = "Hi! How can I help you today?";
 const STORAGE_KEY = 'eloquent-chat-messages';
 
-export const ChatWidget: React.FC<ChatWidgetProps> = ({
-  position = 'bottom-right',
-  brandColor,
-  greetingMessage = DEFAULT_GREETING,
-  title = "Chat Support",
-  isOnline = true,
-  isMaintenanceMode = false,
-  maintenanceMessage = "We're currently performing maintenance. Please try again later.",
-  avatarUrl,
-  apiEndpoint,
-  className = '',
-  defaultOpen = false,
-  persistMessages = true,
-  maxMessages = 100,
-  onToggle,
-  onMessageSent,
-  onCustomMessageHandler
-}) => {
+export const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
+  const {
+    position = 'bottom-right',
+    brandColor,
+    greetingMessage = DEFAULT_GREETING,
+    title = "Chat Support",
+    isOnline = true,
+    isMaintenanceMode = false,
+    maintenanceMessage = "We're currently performing maintenance. Please try again later.",
+    avatarUrl,
+    apiEndpoint,
+    className = '',
+    defaultOpen = false,
+    persistMessages = true,
+    maxMessages = 100,
+    onToggle,
+    onMessageSent,
+    onCustomMessageHandler
+  } = props;
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
