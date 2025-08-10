@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
-import { ChatWidget } from '@/components/chat';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { MessageCircle, Zap, Shield, Smartphone, Code, Globe } from 'lucide-react';
+import React, { useState } from "react";
+import { ChatWidget } from "@/components/chat";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  MessageCircle,
+  Zap,
+  Shield,
+  Smartphone,
+  Code,
+  Globe,
+} from "lucide-react";
 
 const Index = () => {
   const [isOnline, setIsOnline] = useState(true);
@@ -17,24 +30,22 @@ const Index = () => {
           <Badge variant="secondary" className="mb-6">
             ✨ Embeddable Chat Widget Demo
           </Badge>
-          
+
           <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-chat bg-clip-text text-transparent">
             Professional Chat Widget
           </h1>
-          
+
           <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-            A beautiful, production-ready chat widget built with React and TypeScript. 
-            Easy to integrate, fully customizable, and designed for modern web applications.
+            A beautiful, production-ready chat widget built with React and
+            TypeScript. Easy to integrate, fully customizable, and designed for
+            modern web applications.
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center">
-            <Button 
-              onClick={() => setIsOnline(!isOnline)}
-              variant="outline"
-            >
-              Toggle {isOnline ? 'Offline' : 'Online'}
+            <Button onClick={() => setIsOnline(!isOnline)} variant="outline">
+              Toggle {isOnline ? "Offline" : "Online"}
             </Button>
-            <Button 
+            <Button
               onClick={() => setIsMaintenanceMode(!isMaintenanceMode)}
               variant="outline"
             >
@@ -50,14 +61,15 @@ const Index = () => {
           <h2 className="text-3xl font-bold text-center mb-12">
             Production-Ready Features
           </h2>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Card>
               <CardHeader>
                 <MessageCircle className="w-8 h-8 text-primary mb-2" />
                 <CardTitle>Real-time Chat</CardTitle>
                 <CardDescription>
-                  Smooth messaging experience with typing indicators and message persistence
+                  Smooth messaging experience with typing indicators and message
+                  persistence
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -87,7 +99,8 @@ const Index = () => {
                 <Smartphone className="w-8 h-8 text-primary mb-2" />
                 <CardTitle>Mobile Responsive</CardTitle>
                 <CardDescription>
-                  Optimized for all device sizes with touch-friendly interactions
+                  Optimized for all device sizes with touch-friendly
+                  interactions
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -107,7 +120,8 @@ const Index = () => {
                 <Globe className="w-8 h-8 text-primary mb-2" />
                 <CardTitle>Universal</CardTitle>
                 <CardDescription>
-                  Works with any website - React, Vue, vanilla JS, or any framework
+                  Works with any website - React, Vue, vanilla JS, or any
+                  framework
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -122,24 +136,37 @@ const Index = () => {
           <p className="text-muted-foreground mb-8">
             Add a professional chat widget to your website in just a few lines
           </p>
-          
+
           <Card className="text-left">
             <CardHeader>
-              <CardTitle className="text-sm font-mono">Installation & Usage</CardTitle>
+              <CardTitle className="text-sm font-mono">
+                Installation & Usage
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <pre className="text-sm overflow-x-auto">
-                <code>{`npm install eloquent-chat-widget
+                <code>{`npm install embeddable-chat-module@latest
 
-import { ChatWidget } from 'eloquent-chat-widget';
+import { ChatWidget } from 'embeddable-chat-module';
 
 <ChatWidget
-  title="Support Chat"
-  greetingMessage="Hi! How can I help you today?"
-  isOnline={true}
-  position="bottom-right"
-  brandColor="#8B5CF6"
-/>`}</code>
+                title="Support Chat"
+                greetingMessage="Hi! How can I help you today?"
+                isOnline={true}
+                position="bottom-right"
+                brandColor="#8B5CF6"
+                apiEndpoint=''
+                onCustomMessageHandler={(message) => callGetFeedBackFromAi(message)}
+                onMessageSent={(message) => {}}
+                isMaintenanceMode
+                avatarUrl=''
+                className=''
+                defaultOpen
+                maintenanceMessage='sorry but we all went to get coffee'
+                maxMessages={5}
+                persistMessages
+                onToggle={(isOpen) => {}}
+            />`}</code>
               </pre>
             </CardContent>
           </Card>
@@ -154,8 +181,8 @@ import { ChatWidget } from 'eloquent-chat-widget';
         isMaintenanceMode={isMaintenanceMode}
         position="bottom-right"
         persistMessages={true}
-        onMessageSent={(message) => console.log('Message sent:', message)}
-        onToggle={(isOpen) => console.log('Widget toggled:', isOpen)}
+        onMessageSent={(message) => console.log("Message sent:", message)}
+        onToggle={(isOpen) => console.log("Widget toggled:", isOpen)}
       />
     </div>
   );
