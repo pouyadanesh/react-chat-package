@@ -1,25 +1,25 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Minimize2, AlertTriangle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Badge } from '@/components/ui/badge';
-import { ChatMessage } from './ChatMessage';
-import { TypingIndicator } from './TypingIndicator';
-import { StatusIndicator } from './StatusIndicator';
-import { MaintenanceBanner } from './MaintenanceBanner';
+import React, { useState, useRef, useEffect } from "react";
+import { MessageCircle, X, Send, Minimize2, AlertTriangle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Badge } from "@/components/ui/badge";
+import { ChatMessage } from "./ChatMessage";
+import { TypingIndicator } from "./TypingIndicator";
+import { StatusIndicator } from "./StatusIndicator";
+import { MaintenanceBanner } from "./MaintenanceBanner";
 
 export interface Message {
   id: string;
   content: string;
-  sender: 'user' | 'bot';
+  sender: "user" | "bot";
   timestamp: Date;
   isTyping?: boolean;
 }
 
 export interface ChatWidgetProps {
   /** Widget position on screen */
-  position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
+  position?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
   /** Custom brand color (hex, rgb, or hsl format) */
   brandColor?: string;
   /** Custom greeting message */
@@ -53,11 +53,11 @@ export interface ChatWidgetProps {
 }
 
 const DEFAULT_GREETING = "Hi! How can I help you today?";
-const STORAGE_KEY = 'eloquent-chat-messages';
+const STORAGE_KEY = "eloquent-chat-messages";
 
 export const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
   const {
-    position = 'bottom-right',
+    position = "bottom-right",
     brandColor,
     greetingMessage = DEFAULT_GREETING,
     title = "Chat Support",
@@ -66,17 +66,17 @@ export const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
     maintenanceMessage = "We're currently performing maintenance. Please try again later.",
     avatarUrl,
     apiEndpoint,
-    className = '',
+    className = "",
     defaultOpen = false,
     persistMessages = true,
     maxMessages = 100,
     onToggle,
     onMessageSent,
-    onCustomMessageHandler
+    onCustomMessageHandler,
   } = props;
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -89,34 +89,31 @@ export const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
         try {
           const parsedMessages = JSON.parse(stored).map((msg: any) => ({
             ...msg,
-            timestamp: new Date(msg.timestamp)
+            timestamp: new Date(msg.timestamp),
           }));
           setMessages(parsedMessages);
           return; // Exit early if we have stored messages
         } catch (error) {
-          console.warn('Failed to parse stored messages:', error);
+          console.warn("Failed to parse stored messages:", error);
         }
       }
     }
 
     // Add initial greeting if no stored messages
     const greetingMsg: Message = {
-      id: 'greeting',
+      id: "greeting",
       content: greetingMessage,
-      sender: 'bot',
-      timestamp: new Date()
+      sender: "bot",
+      timestamp: new Date(),
     };
     setMessages([greetingMsg]);
   }, [persistMessages]);
 
   // Update greeting message when prop changes
   useEffect(() => {
-    setMessages(prev => {
-      if (prev.length > 0 && prev[0].id === 'greeting') {
-        return [
-          { ...prev[0], content: greetingMessage },
-          ...prev.slice(1)
-        ];
+    setMessages((prev) => {
+      if (prev.length > 0 && prev[0].id === "greeting") {
+        return [{ ...prev[0], content: greetingMessage }, ...prev.slice(1)];
       }
       return prev;
     });
@@ -133,7 +130,9 @@ export const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
   // Auto-scroll to bottom
   useEffect(() => {
     if (scrollAreaRef.current) {
-      const scrollElement = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
+      const scrollElement = scrollAreaRef.current.querySelector(
+        "[data-radix-scroll-area-viewport]"
+      );
       if (scrollElement) {
         scrollElement.scrollTop = scrollElement.scrollHeight;
       }
@@ -159,52 +158,56 @@ export const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
     const userMessage: Message = {
       id: Date.now().toString(),
       content: inputValue.trim(),
-      sender: 'user',
-      timestamp: new Date()
+      sender: "user",
+      timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
-    setInputValue('');
+    setMessages((prev) => [...prev, userMessage]);
+    setInputValue("");
     setIsTyping(true);
 
     onMessageSent?.(userMessage.content);
 
     try {
-      let botResponse = '';
-      
+      let botResponse = "";
+
       if (onCustomMessageHandler) {
         botResponse = await onCustomMessageHandler(userMessage.content);
       } else if (apiEndpoint) {
         const response = await fetch(apiEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: userMessage.content })
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: userMessage.content }),
         });
         const data = await response.json();
-        botResponse = data.response || data.message || 'Sorry, I couldn\'t process that.';
+        botResponse =
+          data.response || data.message || "Sorry, I couldn't process that.";
       } else {
         // Mock response for demo
-        await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
+        await new Promise((resolve) =>
+          setTimeout(resolve, 1000 + Math.random() * 1000)
+        );
         botResponse = generateMockResponse(userMessage.content);
       }
 
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
         content: botResponse,
-        sender: 'bot',
-        timestamp: new Date()
+        sender: "bot",
+        timestamp: new Date(),
       };
 
-      setMessages(prev => [...prev, botMessage]);
+      setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
-      console.error('Failed to send message:', error);
+      console.error("Failed to send message:", error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: 'Sorry, I\'m having trouble responding right now. Please try again.',
-        sender: 'bot',
-        timestamp: new Date()
+        content:
+          "Sorry, I'm having trouble responding right now. Please try again.",
+        sender: "bot",
+        timestamp: new Date(),
       };
-      setMessages(prev => [...prev, errorMessage]);
+      setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsTyping(false);
     }
@@ -216,39 +219,41 @@ export const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
       "I understand you're asking about that. Let me provide you with some information.",
       "That's a great question! Here's what I can tell you about that.",
       "I appreciate you reaching out. Let me assist you with that.",
-      "Thanks for contacting us! I'll be happy to help you with your inquiry."
+      "Thanks for contacting us! I'll be happy to help you with your inquiry.",
     ];
     return responses[Math.floor(Math.random() * responses.length)];
   };
 
   const getPositionClasses = () => {
     switch (position) {
-      case 'bottom-left':
-        return 'bottom-6 left-6';
-      case 'top-right':
-        return 'top-6 right-6';
-      case 'top-left':
-        return 'top-6 left-6';
+      case "bottom-left":
+        return "bottom-6 left-6";
+      case "top-right":
+        return "top-6 right-6";
+      case "top-left":
+        return "top-6 left-6";
       default:
-        return 'bottom-6 right-6';
+        return "bottom-6 right-6";
     }
   };
 
-  const customStyles = brandColor ? {
-    '--primary': brandColor,
-    '--primary-foreground': 'hsl(0 0% 98%)',
-    '--accent': brandColor,
-    '--gradient-chat': `linear-gradient(135deg, ${brandColor}, ${brandColor}dd)`,
-  } as React.CSSProperties : {};
+  const customStyles = brandColor
+    ? ({
+        "--primary": brandColor,
+        "--primary-foreground": "hsl(0 0% 98%)",
+        "--accent": brandColor,
+        "--gradient-chat": `linear-gradient(135deg, ${brandColor}, ${brandColor}dd)`,
+      } as React.CSSProperties)
+    : {};
 
   return (
-    <div 
+    <div
       className={`fixed ${getPositionClasses()} z-50 ${className}`}
       style={customStyles}
     >
       {/* Chat Window */}
       {isOpen && (
-        <div className="mb-4 w-80 sm:w-96 md:fixed md:inset-0 md:w-full md:h-full md:mb-0 md:rounded-none bg-background border border-border rounded-2xl md:border-none shadow-float animate-chat-slide-up overflow-hidden md:z-[60]">
+        <div className="mb-4 w-80 sm:w-96 bg-background border border-border rounded-2xl shadow-float animate-chat-slide-up overflow-hidden">
           {/* Header */}
           <div className="bg-gradient-chat p-4 text-primary-foreground">
             <div className="flex items-center justify-between">
@@ -267,7 +272,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
                   variant="ghost"
                   size="sm"
                   onClick={toggleWidget}
-                  className="hidden sm:flex text-primary-foreground hover:bg-white/20 w-8 h-8 p-0"
+                  className="text-primary-foreground hover:bg-white/20 w-8 h-8 p-0"
                 >
                   <Minimize2 className="w-4 h-4" />
                 </Button>
@@ -290,7 +295,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
           )}
 
           {/* Messages */}
-          <ScrollArea ref={scrollAreaRef} className="h-80 md:h-[calc(100vh-200px)] p-4">
+          <ScrollArea ref={scrollAreaRef} className="h-80 p-4">
             <div className="space-y-4">
               {messages.map((message) => (
                 <ChatMessage
@@ -304,18 +309,22 @@ export const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
           </ScrollArea>
 
           {/* Input */}
-          <div className="p-4 border-t border-border md:absolute md:bottom-0 md:left-0 md:right-0 md:bg-background">
+          <div className="p-4 border-t border-border">
             <div className="flex gap-2">
               <Input
                 ref={inputRef}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder={isMaintenanceMode ? "Chat unavailable during maintenance" : "Type your message..."}
+                placeholder={
+                  isMaintenanceMode
+                    ? "Chat unavailable during maintenance"
+                    : "Type your message..."
+                }
                 disabled={isMaintenanceMode}
-                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
                 className="flex-1"
               />
-              <Button 
+              <Button
                 onClick={handleSendMessage}
                 disabled={!inputValue.trim() || isMaintenanceMode}
                 className="bg-gradient-chat hover:opacity-90 transition-opacity"
@@ -330,8 +339,8 @@ export const ChatWidget: React.FC<ChatWidgetProps> = (props) => {
       {/* Toggle Button - Hidden on mobile when chat is open */}
       <Button
         onClick={toggleWidget}
-        className={`w-14 h-14 rounded-full bg-gradient-chat shadow-chat hover:shadow-float transition-all duration-300 ${
-          isOpen ? 'scale-90 md:hidden' : 'scale-100 animate-pulse-glow'
+        className={`w-14 h-14 rounded-full bg-gradient-chat shadow-chat hover:shadow-float transition-all duration-600 ${
+          isOpen ? "scale-90" : "scale-100 animate-pulse-glow"
         }`}
       >
         {isOpen ? (

@@ -55,80 +55,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 px-6 bg-muted/30">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Production-Ready Features
-          </h2>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card>
-              <CardHeader>
-                <MessageCircle className="w-8 h-8 text-primary mb-2" />
-                <CardTitle>Real-time Chat</CardTitle>
-                <CardDescription>
-                  Smooth messaging experience with typing indicators and message
-                  persistence
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <Zap className="w-8 h-8 text-primary mb-2" />
-                <CardTitle>Easy Integration</CardTitle>
-                <CardDescription>
-                  Install with npm and integrate in just a few lines of code
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <Shield className="w-8 h-8 text-primary mb-2" />
-                <CardTitle>TypeScript Support</CardTitle>
-                <CardDescription>
-                  Full TypeScript support with comprehensive type definitions
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <Smartphone className="w-8 h-8 text-primary mb-2" />
-                <CardTitle>Mobile Responsive</CardTitle>
-                <CardDescription>
-                  Optimized for all device sizes with touch-friendly
-                  interactions
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <Code className="w-8 h-8 text-primary mb-2" />
-                <CardTitle>Customizable</CardTitle>
-                <CardDescription>
-                  Extensive customization options for branding and behavior
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <Globe className="w-8 h-8 text-primary mb-2" />
-                <CardTitle>Universal</CardTitle>
-                <CardDescription>
-                  Works with any website - React, Vue, vanilla JS, or any
-                  framework
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
-        </div>
-      </section>
-
       {/* Code Example Section */}
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
@@ -150,23 +76,23 @@ const Index = () => {
 import { ChatWidget } from 'embeddable-chat-module';
 
 <ChatWidget
-                title="Support Chat"
-                greetingMessage="Hi! How can I help you today?"
-                isOnline={true}
-                position="bottom-right"
-                brandColor="#8B5CF6"
-                apiEndpoint=''
-                onCustomMessageHandler={(message) => callGetFeedBackFromAi(message)}
-                onMessageSent={(message) => {}}
-                isMaintenanceMode
-                avatarUrl=''
-                className=''
-                defaultOpen
-                maintenanceMessage='sorry but we all went to get coffee'
-                maxMessages={5}
-                persistMessages
-                onToggle={(isOpen) => {}}
-            />`}</code>
+    title="Support Chat"
+    greetingMessage="Hi! How can I help you today?"
+    isOnline={true}
+    position="bottom-right"
+    brandColor="#8B5CF6"
+    apiEndpoint=''
+    onCustomMessageHandler={(message) => callGetFeedBackFromAi(message)}
+    onMessageSent={(message) => {}}
+    isMaintenanceMode
+    avatarUrl=''
+    className=''
+    defaultOpen
+    maintenanceMessage='sorry but we all went to get coffee'
+    maxMessages={5}
+    persistMessages
+    onToggle={(isOpen) => {}}
+/>`}</code>
               </pre>
             </CardContent>
           </Card>

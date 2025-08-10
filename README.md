@@ -1,73 +1,86 @@
-# Welcome to your Lovable project
+# Embeddable Chat Module
 
-## Project info
+A customizable, easy-to-integrate React chat widget to add real-time support chat to your application.
 
-**URL**: https://lovable.dev/projects/71af12ec-961a-4829-8a74-7ac1dc9f0bf1
+---
 
-## How can I edit this code?
+## Demo
 
-There are several ways of editing your application.
+![Alt text](demo.gif) / ![](demo.gif)
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/71af12ec-961a-4829-8a74-7ac1dc9f0bf1) and start prompting.
+## Installation
 
-Changes made via Lovable will be committed automatically to this repo.
+Install the library via npm:
 
-**Use your preferred IDE**
+```bash
+npm install embeddable-chat-module
+Usage
+Import and use the ChatWidget component in your React app:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+tsx
+Copy
+Edit
+import { ChatWidget } from "embeddable-chat-module";
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+function App() {
+  return (
+    <ChatWidget
+      title="Support Chat"
+      greetingMessage="Hi! How can I help you today?"
+      isOnline={true}
+      position="bottom-right"
+      brandColor="#8B5CF6"
+      apiEndpoint=""
+      onCustomMessageHandler={(message) => callGetFeedBackFromAi(message)}
+      onMessageSent={(message) => {}}
+      isMaintenanceMode={true}
+      avatarUrl=""
+      className=""
+      defaultOpen={true}
+      maintenanceMessage="Sorry but we all went to get coffee"
+      maxMessages={5}
+      persistMessages={true}
+      onToggle={(isOpen) => {}}
+    />
+  );
+}
+Props Explanation
+Prop	Type	Default	Description
+title	string	"Chat"	The title shown on the chat widget header.
+greetingMessage	string	"Hello!"	Initial message greeting the user when chat opens.
+isOnline	boolean	true	Shows online/offline status of support.
+position	"bottom-left" | "bottom-right"	"bottom-right"	Position of the chat widget on the screen.
+brandColor	string	"#8B5CF6"	Primary color for the chat UI, matching your brand style.
+apiEndpoint	string	""	Backend API endpoint for sending and receiving chat messages.
+onCustomMessageHandler	(message: string) => void	undefined	Callback when a custom message is received, for handling AI or custom logic.
+onMessageSent	(message: string) => void	undefined	Callback triggered when the user sends a message.
+isMaintenanceMode	boolean	false	If true, disables chat and shows a maintenance message.
+maintenanceMessage	string	"We are currently offline"	Message displayed when in maintenance mode.
+avatarUrl	string	""	URL for avatar image shown in the chat header.
+className	string	""	Additional CSS class names for custom styling.
+defaultOpen	boolean	false	Whether the chat widget is open by default on page load.
+maxMessages	number	10	Maximum number of messages to display before oldest are removed.
+persistMessages	boolean	false	If true, messages persist in local storage between sessions.
+onToggle	(isOpen: boolean) => void	undefined	Callback when the chat widget is opened or closed.
 
-Follow these steps:
+Why These Props?
+Customizability: You can fully tailor the chat widget’s appearance (brandColor, position, avatarUrl) to fit your brand.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+Control: Maintenance mode lets you gracefully disable chat during downtime.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+Extensibility: Callbacks like onCustomMessageHandler and onMessageSent enable integrating AI or backend logic.
 
-# Step 3: Install the necessary dependencies.
-npm i
+User Experience: Persisting messages and limiting max messages improves performance and keeps context for users.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+Tech Stack
+React — UI library for component-driven architecture.
 
-**Edit a file directly in GitHub**
+TypeScript — Type safety and better developer experience.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Vite — Fast, modern build tool for bundling the library.
 
-**Use GitHub Codespaces**
+Tailwind CSS — Utility-first styling for rapid UI development.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/71af12ec-961a-4829-8a74-7ac1dc9f0bf1) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+shadcn-ui — Prebuilt accessible UI components enhancing look and feel.
