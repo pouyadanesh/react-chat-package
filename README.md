@@ -6,7 +6,7 @@ A customizable, easy-to-integrate React chat widget to add real-time support cha
 
 ## Demo
 
-![Alt text](demo.gif) / ![](demo.gif)
+![Alt text](demo.gif)
 
 ---
 
@@ -46,24 +46,27 @@ function App() {
     />
   );
 }
-Props Explanation
-Prop	Type	Default	Description
-title	string	"Chat"	The title shown on the chat widget header.
-greetingMessage	string	"Hello!"	Initial message greeting the user when chat opens.
-isOnline	boolean	true	Shows online/offline status of support.
-position	"bottom-left" | "bottom-right"	"bottom-right"	Position of the chat widget on the screen.
-brandColor	string	"#8B5CF6"	Primary color for the chat UI, matching your brand style.
-apiEndpoint	string	""	Backend API endpoint for sending and receiving chat messages.
-onCustomMessageHandler	(message: string) => void	undefined	Callback when a custom message is received, for handling AI or custom logic.
-onMessageSent	(message: string) => void	undefined	Callback triggered when the user sends a message.
-isMaintenanceMode	boolean	false	If true, disables chat and shows a maintenance message.
-maintenanceMessage	string	"We are currently offline"	Message displayed when in maintenance mode.
-avatarUrl	string	""	URL for avatar image shown in the chat header.
-className	string	""	Additional CSS class names for custom styling.
-defaultOpen	boolean	false	Whether the chat widget is open by default on page load.
-maxMessages	number	10	Maximum number of messages to display before oldest are removed.
-persistMessages	boolean	false	If true, messages persist in local storage between sessions.
-onToggle	(isOpen: boolean) => void	undefined	Callback when the chat widget is opened or closed.
+
+## Props Explanation
+
+| Prop                  | Type                                | Default                | Description                                                                                   |
+|-----------------------|-----------------------------------|------------------------|-----------------------------------------------------------------------------------------------|
+| `title`               | `string`                          | `"Chat"`               | The title shown on the chat widget header.                                                   |
+| `greetingMessage`     | `string`                          | `"Hello!"`             | Initial message greeting the user when chat opens.                                           |
+| `isOnline`            | `boolean`                         | `true`                 | Shows online/offline status of support.                                                      |
+| `position`            | `"bottom-left" \| "bottom-right"`| `"bottom-right"`       | Position of the chat widget on the screen.                                                   |
+| `brandColor`          | `string`                          | `"#8B5CF6"`            | Primary color for the chat UI, matching your brand style.                                    |
+| `apiEndpoint`         | `string`                          | `""`                   | Backend API endpoint for sending and receiving chat messages.                                |
+| `onCustomMessageHandler` | `(message: string) => void`       | `undefined`            | Callback when a custom message is received, for handling AI or custom logic.                 |
+| `onMessageSent`       | `(message: string) => void`       | `undefined`            | Callback triggered when the user sends a message.                                            |
+| `isMaintenanceMode`   | `boolean`                         | `false`                | If true, disables chat and shows a maintenance message.                                      |
+| `maintenanceMessage`  | `string`                          | `"We are currently offline"` | Message displayed when in maintenance mode.                                               |
+| `avatarUrl`           | `string`                          | `""`                   | URL for avatar image shown in the chat header.                                               |
+| `className`           | `string`                          | `""`                   | Additional CSS class names for custom styling.                                               |
+| `defaultOpen`         | `boolean`                         | `false`                | Whether the chat widget is open by default on page load.                                     |
+| `maxMessages`         | `number`                          | `10`                   | Maximum number of messages to display before oldest are removed.                             |
+| `persistMessages`     | `boolean`                         | `false`                | If true, messages persist in local storage between sessions.                                |
+| `onToggle`            | `(isOpen: boolean) => void`       | `undefined`            | Callback when the chat widget is opened or closed.                                           |
 
 Why These Props?
 Customizability: You can fully tailor the chat widget’s appearance (brandColor, position, avatarUrl) to fit your brand.
